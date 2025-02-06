@@ -12,7 +12,7 @@ type CarCardProps = {
 
 export default function CarCard({ cars }: CarCardProps) {
   if (!cars) {
-    throw new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a delay
+    throw new Promise(resolve => setTimeout(resolve, 1000)); // Simulate a delay for Suspense
   }
 
   return (

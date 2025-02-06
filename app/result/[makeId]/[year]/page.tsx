@@ -5,8 +5,11 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import { Suspense, useEffect, useState } from 'react';
 
-// import CarCard from '@/components/CarCard';
+// for Suspense
 const CarCard = React.lazy(() => import('@/components/CarCard'));
+
+import ErrResults from '@/components/ErrResults';
+import NoResults from '@/components/NoResults';
 
 type Car = {
   Make_ID: number;
@@ -50,28 +53,17 @@ export default function ResultPage() {
     fetchCars();
   }, [makeId, year]);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  const isResults = !loading && cars.length === 0 && !error;
 
   return (
-    <main className="">
-      <h1 className=" text-center mt-5 text-4xl md:text-5xl font-bold mb-5">Car results: </h1>
+    <main>
+      <h1 className=" text-center mt-5 text-4xl md:text-5xl font-bold mb-5">Car results:</h1>
       <Link className="ml-4 md:ml-10" href={'/'}>
         Go Back
       </Link>
-      {error && (
-        <p className="text-center pt-32 px-5">
-          Houston, we have a problem!... Try to reload the page
-        </p>
-      )}
-      {!loading && cars.length === 0 && !error ? (
-        <h3 className="text-center mt-10">
-          Sorry, no results...
-          <Link className="text-zinc-500" href={'/'}>
-            Try another car
-          </Link>
-        </h3>
+      {error && <ErrResults />}
+      {isResults ? (
+        <NoResults />
       ) : (
         <Suspense fallback={<p className="text-center mt-5 px-5">Loading...</p>}>
           <CarCard cars={cars} />

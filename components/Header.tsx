@@ -16,11 +16,13 @@ const navLinks = [
 ];
 
 export default function Header() {
+
   const pathname = usePathname();
 
   return (
     <header className="flex justify-between items-center border-b border-b-zinc-500 py-3 px-4 sm:px-10  min-h-[65px] tracking-wide relative z-50">
-      {/* <header className="flex justify-between   items-center shadow-md py-3 px-4 sm:px-10 bg-white min-h-[65px] tracking-wide relative z-50"> */}
+
+      {/* Logo */}
       <Link href="/">
         <Image
           src="/img/car-icon.png"

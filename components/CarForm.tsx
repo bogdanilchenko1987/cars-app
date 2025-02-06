@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+
 import { ChangeEvent, FormEvent, useState } from 'react';
+
 import { motion } from 'framer-motion';
 
 interface Car {
@@ -18,6 +20,7 @@ const container = (delay: number, x: number) => ({
   hidden: { x: x, opacity: 0 },
   visible: { x: 0, opacity: 1, transition: { duration: 0.5, delay: delay } },
 });
+
 
 export default function CarForm({ cars, years }: CarFormProps) {
   const [formData, setFormData] = useState({
