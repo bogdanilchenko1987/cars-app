@@ -1,9 +1,12 @@
 'use client';
 
-import CarCard from '@/components/CarCard';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React from 'react';
+import { Suspense, useEffect, useState } from 'react';
+
+// import CarCard from '@/components/CarCard';
+const CarCard = React.lazy(() => import('@/components/CarCard'));
 
 type Car = {
   Make_ID: number;
@@ -11,13 +14,6 @@ type Car = {
   Model_ID: number;
   Model_Name: string;
 };
-
-// interface VehicleModel {
-//   Make_ID: number;
-//   Make_Name: string;
-//   Model_ID: number;
-//   Model_Name: string;
-// }
 
 export default function ResultPage() {
   const { makeId, year } = useParams();
@@ -54,9 +50,9 @@ export default function ResultPage() {
     fetchCars();
   }, [makeId, year]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <main className="">
@@ -69,7 +65,7 @@ export default function ResultPage() {
           Houston, we have a problem!... Try to reload the page
         </p>
       )}
-      {cars.length === 0 && !error ? (
+      {!loading && cars.length === 0 && !error ? (
         <h3 className="text-center mt-10">
           Sorry, no results...
           <Link className="text-zinc-500" href={'/'}>
@@ -77,7 +73,9 @@ export default function ResultPage() {
           </Link>
         </h3>
       ) : (
-        <CarCard cars={cars} />
+        <Suspense fallback={<p className="text-center mt-5 px-5">Loading...</p>}>
+          <CarCard cars={cars} />
+        </Suspense>
       )}
     </main>
   );

@@ -1,13 +1,8 @@
 import CarForm from '@/components/CarForm';
 import { getAllCars } from '@/services/getAllCars';
+import { yearsCounter } from '@/services/years';
 
 export default async function Home() {
-  // getAllCars();
-
-  // const response = await fetch(
-  //   'https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json'
-  // );
-
   const res = await getAllCars();
 
   const cars = res.Results.filter(
@@ -16,9 +11,7 @@ export default async function Home() {
     a.MakeName.localeCompare(b.MakeName)
   );
 
-  const years = Array.from({ length: 11 }, (_, i) =>
-    (new Date().getFullYear() - i).toString()
-  ).reverse();
+  const years = yearsCounter;
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { getAllCars } from '@/services/getAllCars';
+import { yearsCounter } from '@/services/years';
 
 export const generateStaticParams = async () => {
   const res = await getAllCars();
@@ -9,9 +10,7 @@ export const generateStaticParams = async () => {
     a.MakeName.localeCompare(b.MakeName)
   );
 
-  const years = Array.from({ length: 11 }, (_, i) =>
-    (new Date().getFullYear() - i).toString()
-  ).reverse();
+  const years = yearsCounter;
 
   const paths = cars.flatMap((car: { MakeId: string }) =>
     years.map((year: string) => ({
