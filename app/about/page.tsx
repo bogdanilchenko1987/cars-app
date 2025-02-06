@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default async function About() {
   return (
     <main className="text-center pt-32 px-5">
-      <h3 className="text-4xl md:text-5xl font-bold mb-5">Welcome to my app</h3>
+      <h1 className="text-4xl md:text-5xl font-bold mb-5">Welcome to my app</h1>
       <p className="max-w-[750px] mx-auto leading-8">
         Hello guys! This application was created as a test task for the position of Front-end
         Developer. I use Next.js, React, TypeScript and Tailwindcss as my stack here. Feel free to{' '}

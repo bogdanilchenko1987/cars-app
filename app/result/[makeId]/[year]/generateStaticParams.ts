@@ -1,13 +1,17 @@
+import { getAllCars } from '@/services/getAllCars';
+
 export const generateStaticParams = async () => {
-  const response = await fetch(
-    'https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json'
+  const res = await getAllCars();
+
+  const cars = res.Results.filter(
+    (i: { MakeName: string | unknown[] }) => i.MakeName.length < 7
+  ).sort((a: { MakeName: string }, b: { MakeName: string }) =>
+    a.MakeName.localeCompare(b.MakeName)
   );
 
-  // const result = await response;
-  const res = await response.json();
-
-  const cars = res.Results.filter((i: { MakeName: string | unknown[] }) => i.MakeName.length < 7);
-  const years = Array.from({ length: 30 }, (_, i) => (new Date().getFullYear() - i).toString());
+  const years = Array.from({ length: 11 }, (_, i) =>
+    (new Date().getFullYear() - i).toString()
+  ).reverse();
 
   const paths = cars.flatMap((car: { MakeId: string }) =>
     years.map((year: string) => ({

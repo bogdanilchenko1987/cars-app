@@ -4,11 +4,6 @@ import Link from 'next/link';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const container = (delay: number, x: number) => ({
-  hidden: { x: x, opacity: 0 },
-  visible: { x: 0, opacity: 1, transition: { duration: 0.5, delay: delay } },
-});
-
 interface Car {
   MakeId: number;
   MakeName: string;
@@ -19,8 +14,12 @@ interface CarFormProps {
   years: string[];
 }
 
+const container = (delay: number, x: number) => ({
+  hidden: { x: x, opacity: 0 },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.5, delay: delay } },
+});
+
 export default function CarForm({ cars, years }: CarFormProps) {
-  // const CarForm = ({ cars, years }: CarFormProps) => {
   const [formData, setFormData] = useState({
     year: '',
     model: '',
@@ -99,43 +98,3 @@ export default function CarForm({ cars, years }: CarFormProps) {
     </div>
   );
 }
-
-// export default CarForm;
-
-// "use client";
-
-// import { useState } from "react";
-
-// export default function CarForm({ cars, years }) {
-//   const [year, setYear] = useState("");
-//   const [model, setModel] = useState("");
-
-//   const formHandler = (e) => {
-//     e.preventDefault();
-//     console.log(year);
-//   };
-
-//   const change = (e) => console.log(e.currentTarget.value);
-//   return (
-//     <form onSubmit={formHandler}>
-//       <select>
-//         <option value="">Choose a model</option>
-//         {cars.map((car) => (
-//           <option key={car.MakeId} value={car.MakeId} onChange={change}>
-//             {car.MakeName}
-//           </option>
-//         ))}
-//       </select>
-//       <select>
-//         <option value="">Choose a year</option>
-
-//         {years.map((year) => (
-//           <option key={year} value={year} onChange={change}>
-//             {year}
-//           </option>
-//         ))}
-//       </select>
-//       <button type="submit">Click</button>
-//     </form>
-//   );
-// }
